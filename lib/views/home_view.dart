@@ -1,12 +1,13 @@
 import 'dart:ui';
 
+import 'package:AniQuotes/bloc/bloc.dart';
+import 'package:AniQuotes/models/models.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import 'package:random_quote/bloc/bloc.dart';
-import 'package:random_quote/database.dart';
-import 'package:random_quote/models/models.dart';
 import 'package:share/share.dart';
+
+import '../database.dart';
 
 class Spacer extends StatelessWidget {
   const Spacer({Key? key}) : super(key: key);
@@ -32,8 +33,7 @@ class HomeView extends StatelessWidget {
             child: Column(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-              Image.network(
-                  'https://mir-s3-cdn-cf.behance.net/projects/404/ed7253105313541.Y3JvcCwyNTAwLDE5NTUsMCwyNzI.jpg'),
+              Image.asset('images/GTO.jpg'),
               Padding(
                 padding: EdgeInsets.only(
                     bottom: MediaQuery.of(context).size.height * 0.2),
@@ -116,6 +116,8 @@ class HomeView extends StatelessWidget {
                                 character: state.quote.character);
                             if (await database.check(state.quote.quote) == 0) {
                               database.saveQuote(q);
+                              BlocProvider.of<BottomNavigationBloc>(context)
+                                  .add(LoadFavorite());
                               print('you liked');
                               ScaffoldMessenger.of(context)
                                 ..removeCurrentSnackBar()

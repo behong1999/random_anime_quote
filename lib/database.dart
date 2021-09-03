@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:path/path.dart';
 
@@ -54,6 +53,8 @@ class MyDatabase {
   //* Fetch the Saved Quotes from Table
   Future<List<Quote>> fetchSavedQuotes() async {
     var dbClient = await fetchDatabase;
+
+    //* SELECT data from the TABLE
     List<Map<String, dynamic>> maps = await dbClient!
         .query(TABLE, columns: [QUOTETEXT, QUOTECHARACTER, QUOTEANIME]);
     List<Quote> quotes = [];

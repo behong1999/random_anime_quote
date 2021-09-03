@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:random_quote/bloc/bloc.dart';
-import 'package:random_quote/simple_bloc_observer.dart';
 
+import 'bloc/bloc.dart';
+import 'simple_bloc_observer.dart';
 import 'views/navigation_screen.dart';
 
 void main() {

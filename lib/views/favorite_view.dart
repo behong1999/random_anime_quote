@@ -1,7 +1,8 @@
 // import 'package:flushbar/flushbar.dart'
+import 'package:AniQuotes/models/models.dart';
 import 'package:flutter/material.dart';
-import 'package:random_quote/database.dart';
-import 'package:random_quote/models/models.dart';
+
+import '../database.dart';
 
 class FavoriteQuotes extends StatefulWidget {
   const FavoriteQuotes({Key? key}) : super(key: key);

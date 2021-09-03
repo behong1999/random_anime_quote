@@ -1,12 +1,11 @@
 import 'dart:async';
 
+import 'package:AniQuotes/models/models.dart';
+import 'package:AniQuotes/repositories/quote_api_client.dart';
+import 'package:AniQuotes/repositories/repository.dart';
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 
-import 'package:random_quote/models/models.dart';
-import 'package:random_quote/repositories/quote_repository.dart';
-import 'package:random_quote/repositories/quote_api_client.dart';
-import 'package:random_quote/repositories/repository.dart';
 import 'package:http/http.dart' as http;
 
 part 'quote_event.dart';

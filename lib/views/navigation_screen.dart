@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:random_quote/views/favorite_view.dart';
-import 'package:random_quote/views/home_view.dart';
+
 import '../bloc/bloc.dart';
+import 'favorite_view.dart';
+import 'home_view.dart';
 
 final views = <Widget>[
   BlocProvider(

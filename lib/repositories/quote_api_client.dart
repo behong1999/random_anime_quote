@@ -1,7 +1,7 @@
 import 'dart:convert';
 
+import 'package:AniQuotes/models/models.dart';
 import 'package:http/http.dart' as http;
-import 'package:random_quote/models/models.dart';
 
 class QuoteAPIClient {
   final http.Client client;
