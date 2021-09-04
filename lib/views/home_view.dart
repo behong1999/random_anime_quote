@@ -116,8 +116,6 @@ class HomeView extends StatelessWidget {
                                 character: state.quote.character);
                             if (await database.check(state.quote.quote) == 0) {
                               database.saveQuote(q);
-                              BlocProvider.of<BottomNavigationBloc>(context)
-                                  .add(LoadFavorite());
                               print('you liked');
                               ScaffoldMessenger.of(context)
                                 ..removeCurrentSnackBar()
@@ -142,7 +140,7 @@ class HomeView extends StatelessWidget {
                                 ..removeCurrentSnackBar()
                                 ..showSnackBar(SnackBar(
                                     duration: Duration(seconds: 2),
-                                    content: Text('Added Already!',
+                                    content: Text('Already Added!',
                                         style: TextStyle(
                                           color: Colors.white,
                                           fontSize: 15,
