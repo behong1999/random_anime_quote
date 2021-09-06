@@ -1,65 +1,80 @@
-// import 'package:flushbar/flushbar.dart'
-import 'package:AniQuotes/models/models.dart';
+import 'dart:async';
 import 'package:flutter/material.dart';
-
+import 'package:AniQuotes/models/models.dart';
 import '../database.dart';
 
-class FavoriteQuotes extends StatefulWidget {
-  const FavoriteQuotes({Key? key}) : super(key: key);
+//* Declare a GLOBAL StreamController
+StreamController<bool> streamController = StreamController();
+Stream<bool> stream = streamController.stream;
 
+class FavoriteQuotes extends StatefulWidget {
   @override
   _FavoriteQuotesState createState() => _FavoriteQuotesState();
 }
 
 class _FavoriteQuotesState extends State<FavoriteQuotes> {
   var db = MyDatabase();
-  late Future<List<Quote>> quotes;
 
+  //* Fetch a Favorite List at first
+  late Future<List<Quote>> quotes = db.fetchSavedQuotes();
+
+  void afterSaved() {
+    setState(() {
+      quotes = db.fetchSavedQuotes();
+    });
+  }
+
+  @override
   void initState() {
     super.initState();
-    quotes = db.fetchSavedQuotes();
+    //! Subscribing to Stream and Registering a listener
+    stream.listen((saved) {
+      if (saved) afterSaved();
+    });
   }
 
-  Widget Refresh() {
-    return Positioned(
-      bottom: 50,
-      right: 5,
-      child: Tooltip(
-        message: 'Press to Refresh The List',
-        child: FloatingActionButton(
-            backgroundColor: Colors.pink.shade300,
-            onPressed: () {
-              print('refresh');
-              ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                  duration: Duration(seconds: 1),
-                  content: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Icon(Icons.thumb_up),
-                      Text(
-                        ' REFRESHED ',
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 15,
-                        ),
-                        textAlign: TextAlign.center,
-                      ),
-                      Icon(Icons.thumb_up),
-                    ],
-                  ),
-                  backgroundColor: Colors.deepPurple));
-              setState(() {
-                quotes = db.fetchSavedQuotes();
-              });
-            },
-            child: Icon(
-              Icons.refresh,
-              color: Colors.white,
-              size: 50,
-            )),
-      ),
-    );
-  }
+  // Widget Refresh() {
+  //   return Positioned(
+  //     bottom: 50,
+  //     right: 5,
+  //     child: Tooltip(
+  //       margin: EdgeInsets.only(bottom: 5),
+  //       preferBelow: false,
+  //       message: 'Press to Refresh The List',
+  //       child: FloatingActionButton(
+  //           backgroundColor: pink,
+  //           onPressed: () {
+  //             print('refresh');
+  //             ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+  //                 duration: Duration(seconds: 1),
+  //                 content: Row(
+  //                   mainAxisAlignment: MainAxisAlignment.center,
+  //                   children: [
+  //                     Icon(Icons.thumb_up),
+  //                     Text(
+  //                       ' REFRESHED ',
+  //                       style: TextStyle(
+  //                         color: Colors.white,
+  //                         fontSize: 15,
+  //                       ),
+  //                       textAlign: TextAlign.center,
+  //                     ),
+  //                     Icon(Icons.thumb_up),
+  //                   ],
+  //                 ),
+  //                 backgroundColor: Colors.deepPurple));
+  //             setState(() {
+  //               quotes = db.fetchSavedQuotes();
+  //             });
+  //           },
+  //           child: Icon(
+  //             Icons.refresh,
+  //             color: Colors.white,
+  //             size: 50,
+  //           )),
+  //     ),
+  //   );
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -151,7 +166,7 @@ class _FavoriteQuotesState extends State<FavoriteQuotes> {
                               ));
                         }),
                   ),
-                  Refresh(),
+                  // Refresh(),
                 ],
               );
             } else {
@@ -166,7 +181,7 @@ class _FavoriteQuotesState extends State<FavoriteQuotes> {
                         fontFamily: 'quoteScript'),
                   ),
                 ),
-                Refresh()
+                // Refresh()
               ]);
             }
           } else if (snapshot.hasError) {
@@ -175,7 +190,7 @@ class _FavoriteQuotesState extends State<FavoriteQuotes> {
                 Center(
                   child: Text('Failed to Load Favorites'),
                 ),
-                Refresh()
+                // Refresh()
               ],
             );
           } else {
