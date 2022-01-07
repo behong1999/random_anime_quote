@@ -1,4 +1,5 @@
 # Random Anime Quote Generator
+[![made-with-Markdown](https://img.shields.io/badge/Made%20with-Flutter-1389FD.svg)](http://flutter.dev)
 
 An Application that can generate random quotes of any characters from any anime series. <br/>
 The quotes can be shared via social media and saved into the user's favorite list.
